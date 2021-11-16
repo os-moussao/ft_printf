@@ -18,10 +18,9 @@ void	put_nums(int n, ...)
 	va_end(ap);
 }
 
-void	ft_printf(const char *f, ...)
+void	ft_format(const char *f, ...)
 {
 	va_list	ap;
-	int		i;
 	int		d;
 	char	c;
 	char	*s;
@@ -49,17 +48,78 @@ void	ft_printf(const char *f, ...)
 	va_end(ap);
 }
 
+
+// you could return the charecters themselves rather than the numbers
+int	specifier(char *pt)
+{
+	if (pt[0] == '%')
+	{
+		if (pt[1] == 'c')
+			return (1);
+		if (pt[1] == 's')
+			return (2);
+	//	if (pt[1] == 'p')
+	//		return (3);
+		if (pt[1] == 'd')
+			return (4);
+	}
+	return (0);
+}
+
+void	ft_printf(const char *fmt, ...)
+{
+	va_list	ap;
+	int		sp;
+	// int		print_last = 0;
+	int		i = 0;
+	int		d;
+	char	c;
+	char	*s;
+	// void	*p;
+
+	va_start(ap, fmt);
+	while (fmt[i])
+	{
+		if (!fmt[i + 1])
+		{
+			ft_putchar_fd(fmt[i], 1);
+			i++;
+			continue ;
+		}
+		sp = specifier((char *)fmt + i);
+		if (sp == 1)
+		{
+			c = (char)va_arg(ap, int);
+			ft_putchar_fd(c, 1);
+			i++;
+		}
+		else if (sp == 2)
+		{
+			s = va_arg(ap, char *);
+			ft_putstr_fd(s, 1);
+			i++;
+		}
+//		else if (sp == 3)
+//		{
+//			p = va_arg(ap, void *);
+//			ft_putnbr_fd((int)p, 1);
+//		}
+		else if (sp == 4)
+		{
+			d = va_arg(ap, int);
+			ft_putnbr_fd(d, 1);
+			i++;
+		}
+		else
+			ft_putchar_fd(fmt[i], 1);
+		i++;
+	}
+	va_end(ap);
+}
+
 int main(void)
 {
-	// ft_putstr_fd("" this is a backslash \\\"\n", 1);
-	// printf("%#10d\n", 10);
-	/*
-	char	*s = "string";
-	char	c = 'A';
-	int		d = 42;
-	ft_printf("sdc", s, d, c);
-	*/
-	put_nums(5, 34, 5, 65, 89, 42);
+	ft_printf("string:  %s   character: %c   integer:  %d\n", "str1", 'R', 1337);
 }
 
 
