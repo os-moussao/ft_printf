@@ -1,0 +1,5 @@
+things I read/watched when implementing ft_printf:
+
+https://www.cypress.com/file/54441/download
+https://www.youtube.com/watch?v=S-ak715zIIE
+manual pages of course
