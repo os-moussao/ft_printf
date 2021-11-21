@@ -28,7 +28,7 @@ $(NAME): $(OBJS)
 	$(AR) $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -I$(INCLUDE) -o $@
 
 clean:
 	$(RM) $(OBJS)
