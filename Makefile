@@ -10,7 +10,7 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra
 
 # directories
-INCLUDE := includes/
+INCLUDE := ../includes/
 
 SRCS_DIR := srcs/
 
