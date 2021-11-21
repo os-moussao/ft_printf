@@ -10,12 +10,12 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra
 
 # directories
-INCLUDE := ../includes/
+INCLUDE := includes/
 
 SRCS_DIR := srcs/
 
 # necessary files
-SRCS := ft_printf.c
+SRCS := ft_printf.c print_utils.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
 
