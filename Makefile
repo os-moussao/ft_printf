@@ -10,7 +10,7 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra
 
 # directories
-INCLUDE := includes/
+INCLUDE := ../includes/
 
 SRCS_DIR := srcs/
 
@@ -28,7 +28,7 @@ $(NAME): $(OBJS)
 	$(AR) $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -I$(INCLUDE) -o $@
 
 clean:
 	$(RM) $(OBJS)
