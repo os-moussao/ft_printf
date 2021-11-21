@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/20 17:07:58 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:31:24 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,25 @@
  * 		fix code
  * 		redo
  *
+ *	3- more stuff:
+ *		take care of  printig negative hex values
+ *
+ *
  *
  * 		- : left justify
  *		+ : display + sign when the number is positive
  *		space : display hidden sign when the number is positive
  *		0 : pad with leading zeros
  *		. : precision
- *		# : ?
+ *		# : add 0x prefix in hex (%#x/%#X)
  **/
+
+#include <stdio.h>
+#include <unistd.h>
+
+int	main(void)
+{
+	int x = 0xff;
+	x = -x;
+	printf("x = %#x\n", x);
+}
