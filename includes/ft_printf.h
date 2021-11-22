@@ -6,7 +6,11 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/22 21:04:51 by omoussao         ###   ########.fr       */
+=======
+/*   Updated: 2021/11/22 16:11:23 by omoussao         ###   ########.fr       */
+>>>>>>> 43b37825a8f0f54687f579e071a6b636725b1a66
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +42,11 @@ typedef struct s_style
 	bool	left_justify; // the minus flag
 	bool	hash; // 0 or 1
 }				t_style;
+
+# define LL long long
+# define ULL unsigned long long
+# define LHEX "0123456789abcdef"
+# define UHEX "0123456789ABCDEF"
+# define HEX_RADIX 16
 
 #endif
