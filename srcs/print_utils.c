@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 18:15:57 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/22 16:35:17 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/22 17:05:08 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_putstr(const char *str)
 	return (i);
 }
 
-int	ft_putchar(char c)
+int	ft_putchar(const char c)
 {
 	return (write(1, &c, 1));
 }
@@ -45,7 +45,7 @@ int	ft_putnbr(LL nbr)
 	return (count);
 }
 
-int	print_hex(ULL nbr, char option)
+int	print_hex(ULL nbr, char option, len)
 {
 	int	count;
 
