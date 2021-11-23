@@ -26,7 +26,7 @@ SRCS_DIR := srcs/
 #
 # necessary files
 #
-SRCS := ft_printf.c utils.c flags.c
+SRCS := ft_printf.c utils.c flags.c str_print.c 
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
 
