@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/23 16:30:01 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:31:25 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,43 @@
 # define MIN_WIDTH 'w'
 # define PRECISION 'p'
 
-typedef struct s_string
-{
-	char	*str;
-	int		len;
-}				string;
-
+/**
+ * argument structure
+ **/
 typedef struct s_style
 {
-	string		sarg;
-	char		specifier;
-	int			min_width; // width feild
-	int			precision; // precision
-	char		leading_char; // spaces or zeros
-	char		sign; // ' ' or  '+' or '-'
-	bool		left_justify; // the minus flag
-	bool		hash; // 0 or 1
+	char	*arg;
+	char	specifier;
+	int		min_width;
+	int		precision;
+	char	leading_char;
+	char	sign;
+	bool	left_justify;
+	bool	hash;
 }				t_style;
 
+/**
+ * helper functions
+ **/
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+int		ft_strlen(const char *str);
 int		max(int a, int b);
 int		min(int a, int b);
-int		ft_strlen(const char *str);
+
+/**
+ * style function
+ **/
 void	get_style(t_style *style, const char *fmt, int *ptr);
 
-int	ft_printf(const char *format, ...);
+/**
+ * argument printing
+ **/
+int		str_print(t_style style, va_list ap);
+
+/**
+ * mandatory function
+ **/
+int		ft_printf(const char *format, ...);
 
 #endif

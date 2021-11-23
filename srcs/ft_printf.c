@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/23 16:57:29 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:20:55 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,66 +47,6 @@
  *		don't forget to handle unknown specifier --> 2 cases: random char - empthy str
  **/
 
-typedef struct sstring
-{
-	char	*str;
-	int		len;
-}				sstring;
-
-typedef struct sstyle
-{
-	string	string;
-	char		specifier;
-	int			min_width; // width feild
-	int			precision; // precision
-	char		leading_char; // spaces or zeros
-	char		sign; // ' ' or  '+' or '-'
-	bool		left_justify; // the minus flag
-	bool		hash; // 0 or 1
-}				sstyle;
-
-#include <stdio.h>
-int	str_print(t_style style, va_list ap)
-{
-	char	*str;
-	char	c;
-	int		len;
-	int		window_len;
-
-	if (style.specifier == 's')
-	{
-		str = va_arg(ap, char *);
-		len = ft_strlen(str);
-	}
-	else
-	{
-		c = (char)va_arg(ap, int);
-		str = &c;
-		len = 1;
-	}
-	if (style.precision >= 0)
-		window_len = min(len, style.precision);
-	else
-		window_len = len;
-	len = max(window_len, style.min_width);
-	style.sarg.str = malloc(len);
-	if (!style.sarg.str)
-		return (-1);
-	if (style.left_justify)
-	{
-		ft_memcpy(style.sarg.str, str, window_len);
-		ft_memset(style.sarg.str + window_len, ' ', len - window_len);
-	}
-	else
-	{
-		ft_memset(style.sarg.str, ' ', len - window_len);
-		ft_memcpy(style.sarg.str + len - window_len, str, window_len);
-	}
-	if (write(1, style.sarg.str, len) == -1)
-		return (-1);
-	free(style.sarg.str);
-	return (len);
-}
 
 int	arg_print(t_style style, va_list ap)
 {
