@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/25 21:18:31 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/25 23:52:34 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int	arg_print(t_arg_data data, va_list ap)
 		if (tmp == -1)
 			return (-1);
 		ret += tmp;
+	}
+	else if (sp == 'd' || sp == 'i' || sp == 'u'
+		|| sp == 'x' || sp == 'X' || sp == 'p')
+	{
+		tmp = print_number(data, ap);
+		if (tmp == -1)
+			return (-1);
+		ret += tmp;
+	}
+	else
+	{
+		// if sp == '%' or a random character
 	}
 	return (ret);
 }
