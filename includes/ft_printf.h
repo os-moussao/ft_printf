@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/23 18:31:25 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/25 21:19:42 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,26 @@
 # include <stdarg.h>
 # include <stdbool.h>
 
-# define LL long long
-# define ULL unsigned long long
 # define LHEX "0123456789abcdef"
 # define UHEX "0123456789ABCDEF"
 # define HEX_RADIX 16
-# define MIN_WIDTH 'w'
-# define PRECISION 'p'
+
+# define ZERO_PAD		0
+# define LEFT_JUSTIFY	2
+# define PLUS			4
+# define SPACE			8
+# define HASH			16
 
 /**
  * argument structure
  **/
-typedef struct s_style
+typedef struct s_arg_data
 {
-	char	*arg;
-	char	specifier;
-	int		min_width;
-	int		precision;
-	char	leading_char;
-	char	sign;
-	bool	left_justify;
-	bool	hash;
-}				t_style;
+	unsigned int	flags;
+	char			specifier;
+	int				width;
+	int				precision;
+}				t_arg_data;
 
 /**
  * helper functions
@@ -51,14 +49,14 @@ int		max(int a, int b);
 int		min(int a, int b);
 
 /**
- * style function
+ * function to extract flags, width, precision and specifier from format string
  **/
-void	get_style(t_style *style, const char *fmt, int *ptr);
+void	get_arg_data(t_arg_data *data, const char **fmt);
 
 /**
  * argument printing
  **/
-int		str_print(t_style style, va_list ap);
+int		str_print(t_arg_data data, va_list ap);
 
 /**
  * mandatory function
