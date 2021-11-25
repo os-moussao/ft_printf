@@ -6,23 +6,23 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/25 15:13:13 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/25 21:18:31 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	arg_print(t_style style, va_list ap)
+int	arg_print(t_arg_data data, va_list ap)
 {
 	char	sp;
 	int		ret;
 	int		tmp;
 
 	ret = 0;
-	sp = style.specifier;
+	sp = data.specifier;
 	if (sp == 's' || sp == 'c')
 	{
-		tmp = str_print(style, ap);
+		tmp = str_print(data, ap);
 		if (tmp == -1)
 			return (-1);
 		ret += tmp;
@@ -32,25 +32,23 @@ int	arg_print(t_style style, va_list ap)
 
 int	fmt_print(const char *fmt, va_list ap)
 {
-	int		ret;
-	int		ptr;
-	int		tmp;
-	t_style	style;
+	int			ret;
+	int			tmp;
+	t_arg_data	data;
 
-	ptr = 0;
 	ret = 0;
-	while (fmt[ptr])
+	while (*fmt)
 	{
-		if (fmt[ptr] != '%')
+		if (*fmt != '%')
 		{
-			if (write(1, fmt + ptr++, 1) == -1)
+			if (write(1, fmt++, 1) == -1)
 				return (-1);
 			ret++;
 		}
 		else
 		{
-			get_style(&style, fmt, &ptr);
-			tmp = arg_print(style, ap);
+			get_arg_data(&data, &fmt);
+			tmp = arg_print(data, ap);
 			if (tmp == -1)
 				return (-1);
 			ret += tmp;
