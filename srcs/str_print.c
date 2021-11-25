@@ -6,20 +6,21 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/23 18:21:17 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:33:13 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	str_print(t_style style, va_list ap)
+int	str_print(t_arg_data data, va_list ap)
 {
+	char	*out;
 	char	*str;
 	char	c;
 	int		len;
 	int		window_len;
 
-	if (style.specifier == 's')
+	if (data.specifier == 's')
 	{
 		str = va_arg(ap, char *);
 		len = ft_strlen(str);
@@ -30,26 +31,27 @@ int	str_print(t_style style, va_list ap)
 		str = &c;
 		len = 1;
 	}
-	if (style.precision >= 0)
-		window_len = min(len, style.precision);
+	if (data.precision >= 0)
+		window_len = min(len, data.precision);
 	else
 		window_len = len;
-	len = max(window_len, style.min_width);
-	style.arg = malloc(len);
-	if (!style.arg)
+	len = max(window_len, data.width);
+
+	out = malloc(len);
+	if (!out)
 		return (-1);
-	if (style.left_justify)
+	if (data.flags & LEFT_JUSTIFY)
 	{
-		ft_memcpy(style.arg, str, window_len);
-		ft_memset(style.arg + window_len, ' ', len - window_len);
+		ft_memcpy(out, str, window_len);
+		ft_memset(out + window_len, ' ', len - window_len);
 	}
 	else
 	{
-		ft_memset(style.arg, ' ', len - window_len);
-		ft_memcpy(style.arg + len - window_len, str, window_len);
+		ft_memset(out, ' ', len - window_len);
+		ft_memcpy(out + len - window_len, str, window_len);
 	}
-	if (write(1, style.arg, len) == -1)
+	if (write(1, out, len) == -1)
 		return (-1);
-	free(style.arg);
+	free(out);
 	return (len);
 }
