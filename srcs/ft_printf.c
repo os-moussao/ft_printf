@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/25 23:52:34 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/26 21:58:44 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	fmt_print(const char *fmt, va_list ap)
 		else
 		{
 			get_arg_data(&data, &fmt);
+			// here you have to pay attention if the specifier is the NUL character itself
+			// in this case terminate the function
 			tmp = arg_print(data, ap);
 			if (tmp == -1)
 				return (-1);
