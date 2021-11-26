@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:28:35 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/25 21:46:30 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/26 23:37:32 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	get_arg_data(t_arg_data *data, const char **fmt)
 		(*fmt)++;
 		data->precision = fmt_atoi(fmt);
 	}
-	data->specifier = *(*fmt)++;
+	data->specifier = **fmt;
 }
