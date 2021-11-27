@@ -36,6 +36,7 @@ OBJS := $(SRCS:.c=.o)
 # rules
 #
 all: $(NAME)
+bonus: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $@ $^
