@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/26 21:58:44 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/27 03:06:37 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ int	arg_print(t_arg_data data, va_list ap)
 			return (-1);
 		ret += tmp;
 	}
+	/*
 	else
 	{
 		// if sp == '%' or a random character
 	}
+	*/
 	return (ret);
 }
 
@@ -53,19 +55,19 @@ int	fmt_print(const char *fmt, va_list ap)
 	{
 		if (*fmt != '%')
 		{
-			if (write(1, fmt++, 1) == -1)
-				return (-1);
+			write(1, fmt++, 1);
 			ret++;
 		}
 		else
 		{
 			get_arg_data(&data, &fmt);
-			// here you have to pay attention if the specifier is the NUL character itself
-			// in this case terminate the function
 			tmp = arg_print(data, ap);
 			if (tmp == -1)
 				return (-1);
 			ret += tmp;
+			if (!*fmt)
+				break ;
+			fmt++;
 		}
 	}
 	return (ret);
