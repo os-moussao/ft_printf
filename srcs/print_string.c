@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 19:41:39 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/27 23:07:01 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	str_print(t_arg_data data, va_list ap)
 		ft_memset(out, ' ', len - window_len);
 		ft_memcpy(out + len - window_len, str, window_len);
 	}
-	if (write(1, out, len) == -1)
-		return (-1);
+	write(1, out, len);
 	free(out);
 	return (len);
 }
