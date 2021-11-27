@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:42:24 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 03:18:26 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/27 22:46:44 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 // print
 // free
 // for now work only on decimal
+
+
+
 int	print_number(t_arg_data data, va_list ap)
 {
 	unsigned int	flags;
@@ -28,6 +31,7 @@ int	print_number(t_arg_data data, va_list ap)
 	int				abs_size;
 	int				size;
 	char			*arg;
+	// char			*abs_nbr;
 	long long		nbr;
 	long long		n;
 	int				radix = 10;
@@ -61,7 +65,7 @@ int	print_number(t_arg_data data, va_list ap)
 		nbr *= -1;
 	}
 
-	abs_size = (n == 0);
+	abs_size = (n == 0) && (data.precision < 0);
 	while (n)
 	{
 		n /= radix;
@@ -83,7 +87,7 @@ int	print_number(t_arg_data data, va_list ap)
 		ft_memset(arg, sign, sign_size);
 
 		// pad with zeros
-		ft_memset(arg + 1, '0', pad_size);
+		ft_memset(arg + sign_size, '0', pad_size);
 	}
 	else
 	{
@@ -99,7 +103,7 @@ int	print_number(t_arg_data data, va_list ap)
 	}
 
 	// set number
-	if (nbr == 0)
+	if (nbr == 0 && (data.precision != 0))
 		arg[size - 1] = '0';
 	int i = size - 1;
 	while (nbr)
