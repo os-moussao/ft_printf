@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:28:35 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/26 23:37:32 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/27 03:21:46 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_arg_data(t_arg_data *data, const char **fmt)
 			data->flags |= LEFT_JUSTIFY;
 		else if (c == '#')
 			data->flags |= HASH;
-		else if (c == ' ' && (data->flags & PLUS))
+		else if (c == ' ' && !(data->flags & PLUS))
 			data->flags |= SPACE;
 		else if (c == '+')
 			data->flags |= PLUS;
