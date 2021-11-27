@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/25 23:16:42 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/27 19:41:39 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	str_print(t_arg_data data, va_list ap)
 	if (data.specifier == 's')
 	{
 		str = va_arg(ap, char *);
+		if (!str)
+			str = "(null)";
 		len = ft_strlen(str);
 	}
 	else
