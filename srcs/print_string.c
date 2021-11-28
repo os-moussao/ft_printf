@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/28 01:26:03 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/28 20:34:50 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ int	str_print(t_arg_data data, va_list ap)
 			str = "(null)";
 		len = ft_strlen(str);
 	}
-	else
+	else // if (data.specifier == 'c')
 	{
-		c = (char)va_arg(ap, int);
+		if (data.specifier == 'c')
+			c = (char)va_arg(ap, int);
+		else
+			c = data.specifier;
 		str = &c;
 		len = 1;
 	}
