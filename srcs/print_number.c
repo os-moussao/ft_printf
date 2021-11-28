@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:42:24 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 22:46:44 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/28 01:23:53 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ int	print_number(t_arg_data data, va_list ap)
 	int				abs_size;
 	int				size;
 	char			*arg;
-	// char			*abs_nbr;
 	long long		nbr;
 	long long		n;
 	int				radix = 10;
 
-	nbr = (long long) va_arg(ap, int);
-	n = nbr;
-	// printf("%lld	%lld\n", nbr, n);
-
 	sp = data.specifier;
 	flags = data.flags;
+
+	if (sp == 'd' || sp == 'i')
+		nbr = (long long) va_arg(ap, int);
+	else if (sp == 'u' || sp == 'x' || sp == 'X')
+		nbr = (long long) va_arg(ap, unsigned int);
+	else // if sp == 'p'
+		nbr = (long long) va_arg(ap, void *);
+
+	if (sp == 'x' || sp == 'X' || sp == 'p')
+		radix = 16;
+
+	n = nbr;
+	// printf("%lld	%lld\n", nbr, n);
 
 	if (nbr < 0 || sp == 'x' || sp == 'X' || sp == 'p')
 		flags &= ~(SPACE | PLUS);
@@ -76,6 +84,8 @@ int	print_number(t_arg_data data, va_list ap)
 	size = max(nbr_size, data.width);
 	int pad_size = size - nbr_size;
 	
+	if (!size)
+		return (size);
 	arg = malloc(size);
 	if (!arg)
 		return (-1);
