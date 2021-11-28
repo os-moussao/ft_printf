@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 23:07:01 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/28 01:26:03 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	str_print(t_arg_data data, va_list ap)
 		window_len = len;
 	len = max(window_len, data.width);
 
+	if (!len)
+		return (len);
 	out = malloc(len);
 	if (!out)
 		return (-1);
