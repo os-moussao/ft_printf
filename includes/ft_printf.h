@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 16:47:31 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:19:12 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_arg_data
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	left_rotate(char *arr, int size, int d);
-int		ft_strlen(const char *str);
 int		max(int a, int b);
 int		min(int a, int b);
 

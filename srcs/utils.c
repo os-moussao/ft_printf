@@ -6,21 +6,11 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 13:15:45 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 03:38:36 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:18:13 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_strlen(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
 
 int	max(int a, int b)
 {
@@ -41,20 +31,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = -1;
 	while (++i < n)
 		*(char *)(dest + i) = *(char *)(src + i);
-	return (dest);
-}
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = -1;
-	if (dest > src)
-		while (n--)
-			*(char *)(dest + n) = *(char *)(src + n);
-	else if (dest < src)
-		while (++i < n)
-			*(char *)(dest + i) = *(char *)(src + i);
 	return (dest);
 }
 
@@ -89,32 +65,3 @@ void	left_rotate(char *arr, int size, int d)
 		arr[i] = tmp;
 	}
 }
-
-int	get_nbr_size(long long nbr, int base)
-{
-	int	size;
-
-	if (nbr == 0)
-		return (1);
-	size = 0;
-	while (nbr)
-	{
-		size++;
-		nbr /= base;
-	}
-	return (size);
-}
-
-/*
-char	*ft_memdup(const void *src, int n)
-{
-	char	*dup;
-
-	dup = malloc(n);
-	if (!dup)
-		return (NULL);
-	ft_memmove(dup, src, n);
-	return (dup);
-}
-*/
-
