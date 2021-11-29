@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 03:20:44 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:09:35 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdarg.h>
 # include <stdbool.h>
 
-
 /**
  * defines
  **/
@@ -29,12 +28,11 @@
 # define UHEX "0123456789ABCDEF"
 # define HEX_RADIX 16
 
-# define ZERO_PAD		1
-# define LEFT_JUSTIFY	2
-# define PLUS			4
-# define SPACE			8
-# define HASH			16
-
+# define ZERO_PAD		1U
+# define LEFT_JUSTIFY	2U
+# define PLUS			4U
+# define SPACE			8U
+# define HASH			16U
 
 /**
  * argument structure
@@ -47,7 +45,6 @@ typedef struct s_arg_data
 	int				precision;
 }				t_arg_data;
 
-
 /**
  * helper functions
  **/
@@ -58,19 +55,16 @@ int		ft_strlen(const char *str);
 int		max(int a, int b);
 int		min(int a, int b);
 
-
 /**
  * function to extract flags, width, precision and specifier from format string
  **/
 void	get_arg_data(t_arg_data *data, const char **fmt);
 
-
 /**
  * argument printing
  **/
-int		str_print(t_arg_data data, va_list ap);
+int		print_string(t_arg_data data, va_list ap);
 int		print_number(t_arg_data data, va_list ap);
-
 
 /**
  * mandatory function
