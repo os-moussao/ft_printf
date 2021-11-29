@@ -27,7 +27,7 @@ SRCS_DIR := srcs/
 # necessary files
 #
 CFILES := parser.c print_format.c print_string.c print_number.c utils.c
-HFILES := includes/ft_printf.h
+HFILES := $(INCLUDE)ft_printf.h
 
 SRCS := $(addprefix $(SRCS_DIR), $(CFILES) ft_printf.c)
 SRCSB := $(addprefix $(SRCS_DIR), $(CFILES) ft_printf_bonus.c)
@@ -46,7 +46,7 @@ bonus: $(OBJSB)
 $(NAME): $(OBJS) 
 	$(AR) $@ $^
 
-%.o: %.c $(HFLES) 
+%.o: %.c $(HFILES)
 	$(CC) $(CFLAGS) -c $< -I$(INCLUDE) -o $@
 
 clean:
