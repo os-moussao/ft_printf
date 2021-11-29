@@ -6,42 +6,21 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 14:06:23 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:14:41 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_string(t_arg_data data, va_list ap)
+static int	out(t_arg_data data, const char *str, int len)
 {
-	char	*out;
-	char	*str;
-	char	c;
-	int		len;
 	int		window_len;
+	char	*out;
 
-	if (data.specifier == 's')
-	{
-		str = va_arg(ap, char *);
-		if (!str)
-			str = "(null)";
-		len = ft_strlen(str);
-	}
-	else // if (data.specifier == 'c')
-	{
-		if (data.specifier == 'c')
-			c = (char)va_arg(ap, int);
-		else
-			c = data.specifier;
-		str = &c;
-		len = 1;
-	}
+	window_len = len;
 	if (data.precision >= 0)
 		window_len = min(len, data.precision);
-	else
-		window_len = len;
 	len = max(window_len, data.width);
-
 	if (!len)
 		return (len);
 	out = malloc(len);
@@ -60,4 +39,29 @@ int	print_string(t_arg_data data, va_list ap)
 	write(1, out, len);
 	free(out);
 	return (len);
+}
+
+int	print_string(t_arg_data data, va_list ap)
+{
+	char	*str;
+	char	c;
+	int		len;
+
+	if (data.specifier == 's')
+	{
+		str = va_arg(ap, char *);
+		if (!str)
+			str = "(null)";
+		len = ft_strlen(str);
+	}
+	else
+	{
+		if (data.specifier == 'c')
+			c = (char)va_arg(ap, int);
+		else
+			c = data.specifier;
+		str = &c;
+		len = 1;
+	}
+	return (out(data, str, len));
 }
