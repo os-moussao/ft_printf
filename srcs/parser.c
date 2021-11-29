@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:28:35 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/27 03:21:46 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:00:39 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ static void	data_init(t_arg_data *data)
 	data->precision = -1;
 }
 
-static int	fmt_atoi(const char **fmt)
+static int	fmt_atoi(const char **fmt, bool parse)
 {
 	int	res;
 
 	res = 0;
+	if (!parse)
+		return (res);
 	while (**fmt >= '0' && **fmt <= '9')
 		res = res * 10 + *(*fmt)++ - '0';
 	return (res);
 }
 
-void	get_arg_data(t_arg_data *data, const char **fmt)
+void	get_arg_data(t_arg_data *data, const char **fmt, bool parse)
 {
 	char	c;
 
 	(*fmt)++;
 	data_init(data);
-	while (is_flag(**fmt))
+	while (is_flag(**fmt) && parse)
 	{
 		c = *(*fmt)++;
 		if (c == '0')
@@ -55,11 +57,11 @@ void	get_arg_data(t_arg_data *data, const char **fmt)
 		else if (c == '+')
 			data->flags |= PLUS;
 	}
-	data->width = fmt_atoi(fmt);
-	if (**fmt == '.')
+	data->width = fmt_atoi(fmt, parse);
+	if (**fmt == '.' && parse)
 	{
 		(*fmt)++;
-		data->precision = fmt_atoi(fmt);
+		data->precision = fmt_atoi(fmt, parse);
 	}
 	data->specifier = **fmt;
 }
