@@ -6,13 +6,13 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/28 20:34:50 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:06:23 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	str_print(t_arg_data data, va_list ap)
+int	print_string(t_arg_data data, va_list ap)
 {
 	char	*out;
 	char	*str;
