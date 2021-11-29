@@ -26,26 +26,31 @@ SRCS_DIR := srcs/
 #
 # necessary files
 #
-SRCS := ft_printf.c parser.c print_string.c print_number.c utils.c
+CFILES := parser.c print_format.c print_string.c print_number.c utils.c
+HFILES := includes/ft_printf.h
 
-SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
+SRCS := $(addprefix $(SRCS_DIR), $(CFILES) ft_printf.c)
+SRCSB := $(addprefix $(SRCS_DIR), $(CFILES) ft_printf_bonus.c)
 
 OBJS := $(SRCS:.c=.o)
+OBJSB := $(SRCSB:.c=.o)
 
 #
 # rules
 #
 all: $(NAME)
-bonus: $(NAME)
 
-$(NAME): $(OBJS)
+bonus: $(OBJSB)
+	$(AR) $(NAME) $^
+
+$(NAME): $(OBJS) 
 	$(AR) $@ $^
 
-%.o: %.c
+%.o: %.c $(HFLES) 
 	$(CC) $(CFLAGS) -c $< -I$(INCLUDE) -o $@
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(sort $(OBJS) $(OBJSB))
 
 fclean: clean
 	$(RM) $(NAME)
