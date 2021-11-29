@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 14:09:35 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:47:31 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ int		min(int a, int b);
 /**
  * function to extract flags, width, precision and specifier from format string
  **/
-void	get_arg_data(t_arg_data *data, const char **fmt);
+void	get_arg_data(t_arg_data *data, const char **fmt, bool parse);
 
 /**
- * argument printing
+ * format and argument printing
  **/
+int		print_format(const char *format, va_list ap, bool parse);
 int		print_string(t_arg_data data, va_list ap);
 int		print_number(t_arg_data data, va_list ap);
 
