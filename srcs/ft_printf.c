@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 15:54:39 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/28 20:32:21 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:06:09 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,13 @@
 
 int	arg_print(t_arg_data data, va_list ap)
 {
-	char	sp;
 	int		ret;
 	int		tmp;
+	char	sp;
 
 	ret = 0;
 	sp = data.specifier;
-	if (sp == 's' || sp == 'c')
-	{
-		tmp = str_print(data, ap);
-		if (tmp == -1)
-			return (-1);
-		ret += tmp;
-	}
-	else if (sp == 'd' || sp == 'i' || sp == 'u'
+	if (sp == 'd' || sp == 'i' || sp == 'u'
 		|| sp == 'x' || sp == 'X' || sp == 'p')
 	{
 		tmp = print_number(data, ap);
@@ -37,7 +30,7 @@ int	arg_print(t_arg_data data, va_list ap)
 	}
 	else
 	{
-		tmp = str_print(data, ap);
+		tmp = print_string(data, ap);
 		if (tmp == -1)
 			return (-1);
 		ret += tmp;
