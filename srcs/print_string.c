@@ -6,11 +6,21 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 21:14:41 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:17:46 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	ft_strlen(const char *str)
+{
+	int	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
 
 static int	out(t_arg_data data, const char *str, int len)
 {
