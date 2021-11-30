@@ -6,169 +6,129 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:42:24 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/28 22:28:39 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:48:37 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#include <stdio.h>
-// get number size
-// alloc
-// copy
-// print
-// free
-// for now work only on decimal
+static int	get_size(unsigned long long abs, int precision, int radix)
+{
+	int	size;
 
+	size = (!abs && !!precision);
+	while (abs)
+	{
+		abs /= radix;
+		size++;
+	}
+	return (size);
+}
 
-
-int	print_number(t_arg_data data, va_list ap)
+static void	update_data(t_arg_data *data, t_nbr_data *n_data)
 {
 	unsigned int	flags;
 	char			sp;
-	int				sign_size;
-	char			sign;
-	int				abs_size;
-	int				size;
-	char			*arg;
-	long long		nbr;
-	unsigned long	n;
-	unsigned long	abs;
-	int				radix = 10;
-	int				nbr_size;
-	int				pad_size;
-	int				i;
-	int				hash_prefix;
 
-
-	sp = data.specifier;
-	flags = data.flags;
-
-	if (sp == 'd' || sp == 'i')
-		nbr = va_arg(ap, int);
-	else if (sp == 'u' || sp == 'x' || sp == 'X')
-		nbr = va_arg(ap, unsigned int);
-	else // if sp == 'p'
-		abs = (unsigned long)va_arg(ap, void *);
-
-
-	if (sp != 'p')
-	{
-		if (nbr < 0)
-			abs = -nbr;
-		else
-			abs = nbr;
-	}
-	n = abs;
-
-	if (sp == 'x' || sp == 'X' || sp == 'p')
-		radix = 16;
-
-	// printf("%lld	%lld\n", nbr, n);
-
-	if (sp == 'x' || sp == 'X' || sp == 'p' || nbr < 0)
+	flags = data->flags;
+	sp = data->specifier;
+	if (sp == 'x' || sp == 'X' || sp == 'p' || n_data->nbr < 0)
 		flags &= ~(SPACE | PLUS);
-	if (flags & PLUS)
-		flags &= ~SPACE;
-	if (data.precision >= 0 || flags & LEFT_JUSTIFY)
+	if (data->precision >= 0 || flags & LEFT_JUSTIFY)
 		flags &= ~ZERO_PAD;
-	if (sp == 'd' || sp == 'i' || sp == 'u' || ((sp == 'x' || sp == 'X') && abs == 0))
+	if (sp == 'd' || sp == 'i' || sp == 'u' || n_data->abs == 0)
 		flags &= ~HASH;
 	if (sp == 'p')
 		flags |= HASH;
-
-	// printf("\ndebug: space flag is %s\n", (flags & SPACE)? "on": "off");
-
+	data->flags = flags;
+	n_data->sign = 0;
 	if (sp == 'd' || sp == 'i' || sp == 'u')
-	{
-		sign_size = (nbr < 0) || (flags & PLUS) || (flags & SPACE);
+		n_data->sign = '-' * (n_data->nbr < 0) + '+' * !!(flags & PLUS)
+			+ ' ' * !!(flags & SPACE);
+	n_data->radix = 10 + 6 * (sp == 'x' || sp == 'X' || sp == 'p');
+	n_data->abs_size = get_size(n_data->abs, data->precision, n_data->radix);
+	n_data->hash_prefix = 2 * !!(flags & HASH);
+	n_data->nbr_size = max(n_data->abs_size, data->precision)
+		+ !!n_data->sign + n_data->hash_prefix;
+	n_data->size = max(n_data->nbr_size, data->width);
+	n_data->pad_size = n_data->size - n_data->nbr_size;
+}
 
-		sign = '-' * (nbr < 0) + '+' * ((flags & PLUS) != 0)
-			+ ' ' * ((flags & SPACE) != 0);
-	}
-	else
-		sign_size = sign = 0;
+static void	abs_itoa(char *arg, t_nbr_data n_data, t_arg_data data)
+{
+	int					i;
+	int					radix;
+	unsigned long long	abs;
 
-	// len = max( max(abs_size, precision) , width) + has_sign;
-	
-	/*
-	if (n < 0)
-	{
-		n*= -1;
-		nbr *= -1;
-	}
-	*/
-
-	// abs_size = (n == 0) && (data.precision < 0);
-	abs_size = (n == 0) && (data.precision != 0);
-	while (n)
-	{
-		n /= radix;
-		abs_size++;
-	}
-
-	hash_prefix = 2 * ((flags & HASH) != 0);
-	nbr_size = max(abs_size, data.precision) + sign_size + hash_prefix;
-	size = max(nbr_size, data.width);
-	pad_size = size - nbr_size;
-	
-	if (!size)
-		return (size);
-	arg = malloc(size);
-	if (!arg)
-		return (-1);
-
-	// set padding
-	if (flags & ZERO_PAD)
-	{
-		// set sign
-		ft_memset(arg, sign, sign_size);
-
-		if (hash_prefix)
-		{
-			arg[0] = '0';
-			arg[1] = 'x' * (sp != 'X') + 'X' * (sp == 'X');
-		}
-
-		// pad with zeros
-		ft_memset(arg + sign_size + hash_prefix, '0', pad_size);
-	}
-	else
-	{
-		// pad with spaces
-		ft_memset(arg, ' ', pad_size);
-
-		// set sign
-		ft_memset(arg + pad_size, sign, sign_size);
-
-		if (hash_prefix)
-		{
-			arg[pad_size] = '0';
-			arg[pad_size + 1] = 'x' * (sp != 'X') + 'X' * (sp == 'X');;
-		}
-
-		// set 0's if the precision > abs_size
-		if (data.precision > abs_size)
-			ft_memset(arg + pad_size + sign_size + hash_prefix,
-				'0', data.precision - abs_size);
-	}
-
-	// set number
+	abs = n_data.abs;
+	radix = n_data.radix;
+	i = n_data.size - 1;
 	if (abs == 0 && (data.precision != 0))
-		arg[size - 1] = '0';
-	i = size - 1;
+		arg[i] = '0';
 	while (abs)
 	{
-		arg[i--] = LHEX[abs % radix] * (sp != 'X') + UHEX[abs % radix] * (sp == 'X');
+		if (data.specifier == 'X')
+			arg[i--] = UHEX[abs % radix];
+		else
+			arg[i--] = LHEX[abs % radix];
 		abs /= radix;
 	}
+}
 
-	// apply LEFT_JUSTIFY flag
-	if (flags & LEFT_JUSTIFY)
-		left_rotate(arg, size, pad_size);
+void	fill_arg(char *arg, t_arg_data data, t_nbr_data n_data)
+{
+	if (data.flags & ZERO_PAD)
+	{
+		ft_memset(arg, n_data.sign, !!n_data.sign);
+		if (n_data.hash_prefix)
+		{
+			arg[0] = '0';
+			arg[1] = 'x' - 32 * (data.specifier == 'X');
+		}
+		ft_memset(arg + !!n_data.sign + n_data.hash_prefix,
+			'0', n_data.pad_size);
+	}
+	else
+	{
+		ft_memset(arg, ' ', n_data.pad_size);
+		ft_memset(arg + n_data.pad_size, n_data.sign, !!n_data.sign);
+		if (n_data.hash_prefix)
+		{
+			arg[n_data.pad_size] = '0';
+			arg[n_data.pad_size + 1] = 'x' - 32 * (data.specifier == 'X');
+		}
+		if (data.precision > n_data.abs_size)
+			ft_memset(arg + n_data.pad_size + !!n_data.sign
+				+ n_data.hash_prefix, '0', data.precision - n_data.abs_size);
+	}
+	abs_itoa(arg, n_data, data);
+}
 
-	write(1, arg, size);
+int	print_number(t_arg_data data, va_list ap)
+{
+	t_nbr_data	n_data;
+	char		*arg;
+	char		sp;
+
+	sp = data.specifier;
+	if (sp == 'd' || sp == 'i')
+		n_data.nbr = va_arg(ap, int);
+	else if (sp == 'u' || sp == 'x' || sp == 'X')
+		n_data.nbr = va_arg(ap, unsigned int);
+	else
+		n_data.abs = (unsigned long)va_arg(ap, void *);
+	if (sp != 'p')
+		n_data.abs = n_data.nbr - 2 * (n_data.nbr < 0) * n_data.nbr;
+	update_data(&data, &n_data);
+	if (!n_data.size)
+		return (n_data.size);
+	arg = malloc(n_data.size);
+	if (!arg)
+		return (-1);
+	fill_arg(arg, data, n_data);
+	if (data.flags & LEFT_JUSTIFY)
+		left_rotate(arg, n_data.size, n_data.pad_size);
+	write(1, arg, n_data.size);
 	free(arg);
-
-	return (size);
+	return (n_data.size);
 }
