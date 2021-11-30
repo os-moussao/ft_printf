@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:42:24 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/30 19:48:37 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 20:26:17 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	abs_itoa(char *arg, t_nbr_data n_data, t_arg_data data)
 	}
 }
 
-void	fill_arg(char *arg, t_arg_data data, t_nbr_data n_data)
+static void	fill_arg(char *arg, t_arg_data data, t_nbr_data n_data)
 {
 	if (data.flags & ZERO_PAD)
 	{
