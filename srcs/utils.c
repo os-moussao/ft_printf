@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 13:15:45 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 21:18:13 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 23:42:17 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*ft_memset(void *b, int c, size_t len)
 
 /**
  * This function rotates an array to the left by d elements
- * it is mostly used with the flag LEFT_JUSTIFY
+ * it is used with the flag LEFT_JUSTIFY
  **/
 void	left_rotate(char *arr, int size, int d)
 {

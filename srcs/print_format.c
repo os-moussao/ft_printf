@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:07:10 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 16:16:12 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 22:46:39 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ static int	print_argument(t_arg_data data, va_list ap)
 	return (ret);
 }
 
+/**
+ * This function prints and iterates through the characters
+ * in the format string, when '%' is encountered, it calls
+ * get_arg_data() to get the argument data, and calls print_argument()
+ * to print the argument.
+ */
 int	print_format(const char *format, va_list ap, bool parse)
 {
 	int			ret;

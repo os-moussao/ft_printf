@@ -6,12 +6,17 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:04:57 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 16:13:26 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 22:38:54 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/**
+ * This version of printf function handles
+ * flags ('0', '-', '+', ' ', '#'), the width and the precision...
+ * it passes 1 to print_format() as an order to parse the format string.
+ */
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;

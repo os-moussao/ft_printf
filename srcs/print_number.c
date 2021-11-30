@@ -6,12 +6,16 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:42:24 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/30 20:26:17 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 23:41:27 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/**
+ * This funtion outputs the size of the absolute value
+ * Ex: abs(-123) = 123, it will take 3 characters to print 123
+ */
 static int	get_size(unsigned long long abs, int precision, int radix)
 {
 	int	size;
@@ -25,6 +29,14 @@ static int	get_size(unsigned long long abs, int precision, int radix)
 	return (size);
 }
 
+/**
+ * This function updates all the data related to how will we print the
+ * given number according to the standards of printf function.
+ * For example: when the flag LEFT_JUSTIFY is on, the flag ZERO_PAD
+ * should be ignored. Or when the value to print is a pointer the HASH
+ * flag is on (meaning all pointers must have a "0x" prefix)
+ * It also updates some number dimensions such as pad_size, radix...
+ */
 static void	update_data(t_arg_data *data, t_nbr_data *n_data)
 {
 	unsigned int	flags;
@@ -54,6 +66,10 @@ static void	update_data(t_arg_data *data, t_nbr_data *n_data)
 	n_data->pad_size = n_data->size - n_data->nbr_size;
 }
 
+/**
+ * This function copies the absolute value
+ * into the argument string
+ */
 static void	abs_itoa(char *arg, t_nbr_data n_data, t_arg_data data)
 {
 	int					i;
@@ -75,6 +91,10 @@ static void	abs_itoa(char *arg, t_nbr_data n_data, t_arg_data data)
 	}
 }
 
+/**
+ * This function copies the content to the argument string
+ * according to the style specified int data and n_data
+ */
 static void	fill_arg(char *arg, t_arg_data data, t_nbr_data n_data)
 {
 	if (data.flags & ZERO_PAD)
@@ -104,6 +124,14 @@ static void	fill_arg(char *arg, t_arg_data data, t_nbr_data n_data)
 	abs_itoa(arg, n_data, data);
 }
 
+/**
+ * This function deal with all the numebrs (d, i, u, x, X, p)
+ * it gets the number using the argument pointer
+ * then it passes the values data (argument data) and n_data (number data)
+ * to update_data(). After that it allocates memory for arg, applies the
+ * LEFT_JUSTIFY flag if needed, writes the final result, frees the allocated
+ * memory and quits.
+ */
 int	print_number(t_arg_data data, va_list ap)
 {
 	t_nbr_data	n_data;

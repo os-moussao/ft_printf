@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:28:35 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 16:00:39 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 22:32:54 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ static bool	is_flag(char c)
 		|| c == ' ' || c == '+');
 }
 
+/**
+ * Function that initializes argument data
+ */
 static void	data_init(t_arg_data *data)
 {
 	data->flags = 0U;
@@ -25,6 +28,11 @@ static void	data_init(t_arg_data *data)
 	data->precision = -1;
 }
 
+/**
+ * When (parse == true) this function gets a number (either the
+ * width or the precision) from the format string, and increments the
+ * format pointer along the way.
+ */
 static int	fmt_atoi(const char **fmt, bool parse)
 {
 	int	res;
@@ -37,6 +45,15 @@ static int	fmt_atoi(const char **fmt, bool parse)
 	return (res);
 }
 
+/**
+ * When given the order to parse (parse == true)
+ * this function parses the characters after '%' and extracts
+ * all information on how will we print the argument
+ * it handles the flags ('0','-','+',' ', '#'), the width
+ * the precision, the specifier and it increments the format pointer
+ * along the way.
+ * Otherwise (when parse = false) it gets the specifier directly.
+ */
 void	get_arg_data(t_arg_data *data, const char **fmt, bool parse)
 {
 	char	c;

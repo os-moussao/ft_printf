@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/30 19:31:50 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 22:10:51 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
  **/
 # define LHEX "0123456789abcdef"
 # define UHEX "0123456789ABCDEF"
-# define HEX_RADIX 16
 
 # define ZERO_PAD		1U
 # define LEFT_JUSTIFY	2U
@@ -76,7 +75,7 @@ int		min(int a, int b);
 void	get_arg_data(t_arg_data *data, const char **fmt, bool parse);
 
 /**
- * format and argument printing
+ * format and argument printing functions
  **/
 int		print_format(const char *format, va_list ap, bool parse);
 int		print_string(t_arg_data data, va_list ap);
