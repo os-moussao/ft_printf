@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:43:00 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 21:19:12 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:31:50 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ typedef struct s_arg_data
 	int				width;
 	int				precision;
 }				t_arg_data;
+
+/**
+ * data related to numbers
+ **/
+typedef struct s_nbr_data
+{
+	long long			nbr;
+	unsigned long long	abs;
+	int					size;
+	int					nbr_size;
+	int					abs_size;
+	int					pad_size;
+	int					hash_prefix;
+	int					radix;
+	char				sign;
+}				t_nbr_data;
 
 /**
  * helper functions
