@@ -6,7 +6,7 @@
 /*   By: omoussao <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:20:26 by omoussao          #+#    #+#             */
-/*   Updated: 2021/11/29 21:17:46 by omoussao         ###   ########.fr       */
+/*   Updated: 2021/12/01 13:22:08 by omoussao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ static int	ft_strlen(const char *str)
 	return (len);
 }
 
+/**
+ * This function prints the given string with respect to
+ * the flags and dimentions specified in the data variable
+ */
 static int	out(t_arg_data data, const char *str, int len)
 {
 	int		window_len;
@@ -51,6 +55,12 @@ static int	out(t_arg_data data, const char *str, int len)
 	return (len);
 }
 
+/**
+ * This function gets the string/character using the variable argument
+ * (or it gets the specifier itself if it is not an 's' nor a 'c')
+ * it then passes the length, the string, and the argument data to out()
+ * to print the result
+ */
 int	print_string(t_arg_data data, va_list ap)
 {
 	char	*str;
